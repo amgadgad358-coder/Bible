@@ -1,216 +1,259 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✝️ الكتاب المقدس</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="طريق النور - الكتاب المقدس والقطمارس وصلوات الأجبية">
+<meta name="theme-color" content="#102b45">
+<title>طريق النور | الموقع الرسمي</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- ===== الشاشة الرئيسية ===== -->
-  <div id="home-screen" class="screen active">
-    <header class="main-header">
-      <h1>✝️ الكتاب المقدس</h1>
-      <p class="subtitle">كلمة الله الحية</p>
-    </header>
+<header class="hero">
 
-    <div class="menu-grid">
-      <div class="menu-card" onclick="openTestament('old')">
-        <div class="icon">📜</div>
-        <h3>العهد القديم</h3>
-        <p>39 سفر</p>
-      </div>
+<nav>
+<a class="brand" href="#">
+<img src="icon.png" alt="طريق النور">
+<span>طريق النور<small>تطبيق مسيحي</small></span>
+</a>
 
-      <div class="menu-card" onclick="openTestament('new')">
-        <div class="icon">✝️</div>
-        <h3>العهد الجديد</h3>
-        <p>27 سفر</p>
-      </div>
+<div class="nav-actions">
+<button id="themeBtn" class="theme-btn" aria-label="تغيير المظهر">☀️</button>
+<a class="nav-download" href="#download">تحميل التطبيق</a>
+</div>
+</nav>
 
-      <div class="menu-card" onclick="showDailyVerse()">
-        <div class="icon">🌞</div>
-        <h3>آية اليوم</h3>
-        <p>كلمة تشجعك</p>
-      </div>
+<main>
 
-      <div class="menu-card" onclick="showFavorites()">
-        <div class="icon">❤️</div>
-        <h3>المفضلة</h3>
-        <p>آياتك المحفوظة</p>
-      </div>
+<div class="app-icon">
+<img src="icon.png" alt="أيقونة التطبيق">
+</div>
 
-      <div class="menu-card" onclick="showSearch()">
-        <div class="icon">🔍</div>
-        <h3>بحث</h3>
-        <p>ابحث في الكتاب</p>
-      </div>
+<p class="gold">الكتاب المقدس • الأجبية • القطمارس</p>
 
-      <div class="menu-card" onclick="showReadingPlan()">
-        <div class="icon">📅</div>
-        <h3>خطة القراءة</h3>
-        <p>إقرأ في سنة</p>
-      </div>
+<h1>طريق النور</h1>
 
-      <div class="menu-card" onclick="showSettings()">
-        <div class="icon">⚙️</div>
-        <h3>الإعدادات والتواصل</h3>
-        <p>الإعدادات وواتساب</p>
-      </div>
-    </div>
+<p class="lead">
+تطبيق مسيحي يجمع الكتاب المقدس وصلوات الأجبية وقراءات القطمارس في تجربة واحدة بسيطة وهادئة.
+</p>
 
-    <footer class="migo-footer">القائمة الرئيسية صنع بواسطة <strong>ميجو</strong></footer>
-    </div>
-  </div>
+<div class="stats">
 
-  <!-- ===== شاشة الأسفار ===== -->
-  <div id="books-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2 id="books-title">العهد الجديد</h2>
-      <span></span>
-    </header>
-    <div id="books-list" class="books-list"></div>
-  </div>
+<div class="stat">
+<strong id="downloadCount">—</strong>
+<span>عدد التحميلات</span>
+</div>
 
-  <!-- ===== شاشة الإصحاحات ===== -->
-  <div id="chapters-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="backToBooks()">→</button>
-      <h2 id="chapters-title">إنجيل يوحنا</h2>
-      <span></span>
-    </header>
-    <div id="chapters-grid" class="chapters-grid"></div>
-  </div>
+<div class="stat">
+<strong>Android</strong>
+<span>نظام التشغيل</span>
+</div>
 
-  <!-- ===== شاشة القراءة ===== -->
-  <div id="reading-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="backToChapters()">→</button>
-      <h2 id="reading-title">يوحنا 3</h2>
-      <button onclick="toggleFavorite()" id="fav-btn">🤍</button>
-    </header>
+<div class="stat">
+<strong>مجاني</strong>
+<span>تحميل التطبيق</span>
+</div>
 
-    <div class="reading-controls">
-      <button onclick="changeFontSize(-1)">A-</button>
-      <button onclick="toggleDarkMode()" id="theme-btn">🌙</button>
-      <button onclick="speakVerses()" id="speak-btn">🔊</button>
-      <button onclick="changeFontSize(1)">A+</button>
-    </div>
+</div>
 
-    <!-- ===== شريط التقدم الصوتي ===== -->
-    <div id="audio-progress-bar" class="audio-progress-bar">
-      <div class="audio-info">
-        <span id="audio-time-current">0:00</span>
-        <span id="audio-status">اضغط 🔊 لبدء القراءة</span>
-        <span id="audio-time-total">0:00</span>
-      </div>
-      <div class="audio-track" id="audio-track">
-        <div class="audio-fill" id="audio-fill"></div>
-        <div class="audio-thumb" id="audio-thumb"></div>
-      </div>
-    </div>
+<a class="download" href="app.apk" data-download>
+<span class="arrow">↓</span>
+<span>
+<strong>تحميل التطبيق</strong>
+<small>Android APK</small>
+</span>
+</a>
 
-    <div id="verses-container" class="verses-container"></div>
-  </div>
+<p class="note" id="downloadStatus">التحميل مجاني.</p>
 
-  <!-- ===== شاشة آية اليوم ===== -->
-  <div id="daily-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2>آية اليوم</h2>
-      <span></span>
-    </header>
-    <div class="daily-verse-card">
-      <div class="sun-icon">🌞</div>
-      <p id="daily-text" class="daily-text"></p>
-      <p id="daily-ref" class="daily-ref"></p>
-      <button class="share-btn" onclick="shareVerse()">📤 مشاركة</button>
-    </div>
-  </div>
+</main>
+</header>
 
-  <!-- ===== شاشة المفضلة ===== -->
-  <div id="favorites-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2>المفضلة ❤️</h2>
-      <span></span>
-    </header>
-    <div id="favorites-list" class="favorites-list"></div>
-  </div>
+<section>
 
-  <!-- ===== شاشة البحث ===== -->
-  <div id="search-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2>البحث 🔍</h2>
-      <span></span>
-    </header>
-    <div class="search-box">
-      <input type="text" id="search-input" placeholder="ابحث بكلمة..." oninput="performSearch()">
-    </div>
-    <div id="search-results" class="search-results"></div>
-  </div>
+<div class="title">
+<p>كل ما تحتاجه في مكان واحد</p>
+<h2>مميزات التطبيق</h2>
+</div>
 
-  <!-- ===== شاشة الإعدادات والتواصل ===== -->
-  <div id="settings-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2>الإعدادات والتواصل ⚙️</h2>
-      <span></span>
-    </header>
+<div class="grid">
 
-    <div class="settings-container">
-      <section class="settings-card">
-        <h3>إعدادات العرض</h3>
-        <div class="setting-row">
-          <div>
-            <strong>الوضع الليلي</strong>
-            <p>تبديل مظهر التطبيق</p>
-          </div>
-          <button class="setting-action" onclick="toggleDarkMode(); updateSettingsUI()" id="settings-theme-btn">🌙</button>
-        </div>
-        <div class="setting-row">
-          <div>
-            <strong>حجم الخط</strong>
-            <p id="settings-font-size">20px</p>
-          </div>
-          <div class="font-actions">
-            <button class="setting-action" onclick="changeFontSize(-1); updateSettingsUI()">A-</button>
-            <button class="setting-action" onclick="changeFontSize(1); updateSettingsUI()">A+</button>
-          </div>
-        </div>
-      </section>
+<article>
+<i>📖</i>
+<h3>الكتاب المقدس</h3>
+<p>تصفح الأسفار والإصحاحات بسهولة ووضوح.</p>
+</article>
 
-      <section class="contact-card">
-        <div class="contact-icon">💬</div>
-        <h3>التواصل مع ميجو</h3>
-        <p>للتواصل والاستفسارات يمكنك مراسلتنا عبر واتساب.</p>
-        <a class="whatsapp-btn" href="https://wa.me/201221902098" target="_blank" rel="noopener noreferrer">
-          💚 تواصل عبر واتساب
-        </a>
-        <div class="contact-number">+20 122 190 2098</div>
-      </section>
+<article>
+<i>✝</i>
+<h3>صلوات الأجبية</h3>
+<p>صلوات الساعات مرتبة في واجهة سهلة للقراءة.</p>
+</article>
 
-      <div class="settings-footer">صنع بواسطة <strong>ميجو</strong> ✨</div>
-    </div>
-  </div>
+<article>
+<i>🕊</i>
+<h3>القطمارس</h3>
+<p>الوصول إلى قراءات اليوم بطريقة بسيطة.</p>
+</article>
 
-  <!-- ===== شاشة خطة القراءة ===== -->
-  <div id="plan-screen" class="screen">
-    <header class="top-bar">
-      <button onclick="goHome()">→</button>
-      <h2>خطة القراءة 📅</h2>
-      <span></span>
-    </header>
-    <div class="plan-container">
-      <p>اقرأ الكتاب المقدس في سنة واحدة</p>
-      <div id="plan-list" class="plan-list"></div>
-    </div>
-  </div>
+<article>
+<i>🔊</i>
+<h3>تجربة مريحة</h3>
+<p>تصميم هادئ مناسب للاستخدام اليومي.</p>
+</article>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+</div>
+</section>
+
+<section class="about">
+
+<div>
+<p class="gold">عن طريق النور</p>
+<h2>رفيقك الروحي في كل يوم</h2>
+
+<p>
+طريق النور يجمع أهم المحتويات الروحية في تطبيق واحد، مع تصميم بسيط يساعدك على الوصول إلى ما تحتاجه بسرعة.
+</p>
+
+<a class="outline" href="#download">تحميل مجاني</a>
+</div>
+
+<div class="quote">
+<div>“</div>
+<strong>سراج لرجلي كلامك ونور لسبيلي.</strong>
+<small>مزمور 119</small>
+</div>
+
+</section>
+
+<section id="download" class="download-area">
+
+<div>
+
+<img src="icon.png" alt="" class="bottom-icon">
+
+<p class="gold">جاهز للبدء؟</p>
+
+<h2>حمّل طريق النور الآن</h2>
+
+<p>نسخة Android متاحة للتحميل مباشرة.</p>
+
+<a class="download dark" href="app.apk" data-download>
+
+<span class="arrow">↓</span>
+
+<span>
+<strong>تحميل التطبيق</strong>
+<small>APK لنظام Android</small>
+</span>
+
+</a>
+
+<p class="note">كل تحميل يتم تسجيله في العداد العام.</p>
+
+</div>
+
+</section>
+
+<footer>
+<b>✝ طريق النور</b>
+<span>© 2026 طريق النور — تطبيق مسيحي</span>
+</footer>
+
+<script>
+
+const SUPABASE_URL="https://htxrcnnnwieljcwtehja.supabase.co";
+
+const SUPABASE_KEY="sb_publishable_Ciax_MpHm4KZRuFd2aRUSg_BqUFsiDi";
+
+const supabaseClient=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+const root=document.documentElement;
+
+if(localStorage.getItem("tariq_theme")==="light"){
+root.classList.add("light");
+}
+
+function updateThemeButton(){
+document.getElementById("themeBtn").textContent=
+root.classList.contains("light")?"🌙":"☀️";
+}
+
+updateThemeButton();
+
+document.getElementById("themeBtn").addEventListener("click",()=>{
+root.classList.toggle("light");
+
+localStorage.setItem(
+"tariq_theme",
+root.classList.contains("light")?"light":"dark"
+);
+
+updateThemeButton();
+});
+
+async function loadDownloads(){
+
+const counter=document.getElementById("downloadCount");
+
+const {data,error}=await supabaseClient.rpc(
+"get_download_count"
+);
+
+if(!error && data!==null){
+
+counter.textContent=
+Number(data).toLocaleString("ar-EG");
+
+}else{
+
+counter.textContent="0";
+
+}
+
+}
+
+loadDownloads();
+
+document.querySelectorAll("[data-download]").forEach(button=>{
+
+button.addEventListener("click",async event=>{
+
+event.preventDefault();
+
+const status=document.getElementById("downloadStatus");
+
+status.textContent="جاري تجهيز التحميل…";
+
+const {data,error}=await supabaseClient.rpc(
+"record_download"
+);
+
+if(!error && data!==null){
+
+document.getElementById("downloadCount").textContent=
+Number(data).toLocaleString("ar-EG");
+
+status.textContent="تم تسجيل التحميل.";
+
+}else{
+
+status.textContent="سيبدأ التحميل الآن.";
+
+}
+
+window.location.href="app.apk";
+
+});
+
+});
+
+</script>
+
 </body>
 </html>
